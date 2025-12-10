@@ -1867,11 +1867,6 @@ function calculateResult() {
     const dimensionScores = [0, 0, 0, 0];
     const dimensionCounts = [15, 15, 15, 15];
     
-    questions.forEach((q, i) => {
-        let score = answers[i]; // 1-5
-        if (q.reverse) {
-            score = 6 - score;
-        }
         dimensionScores[q.dimension] += score;
     });
     questions.forEach((q, i) => {
@@ -1885,26 +1880,7 @@ function calculateResult() {
 // 调试：检查每个维度的分数
 console.log("原始维度分数:", dimensionScores);
 console.log("答案数组:", answers);
-```
 
----
-
-## 🧪 **测试步骤：**
-
-1. **保存文件**
-2. **清空浏览器缓存**（Ctrl+Shift+Delete）
-3. **刷新页面**（Ctrl+F5）
-4. **打开控制台**（F12 → Console标签）
-5. **重新做一次测试**
-6. **截图控制台输出**给我看
-
-控制台会显示：
-```
-维度得分: [57, 57, 57, NaN]  ← 如果第4个是NaN就是bug
-MBTI类型: ENTP
-原始维度分数: [43, 43, 43, 0]
-答案数组: [3, 3, 3, ...]
-    // 计算百分比得分 (0-100)
     const percentageScores = dimensionScores.map((score, i) => 
         Math.round((score / (dimensionCounts[i] * 5)) * 100)
     );
@@ -2292,6 +2268,7 @@ window.onload = function() {
     </script>
 </body>
 </html>
+
 
 
 
