@@ -1867,8 +1867,6 @@ function calculateResult() {
     const dimensionScores = [0, 0, 0, 0];
     const dimensionCounts = [15, 15, 15, 15];
     
-        dimensionScores[q.dimension] += score;
-    });
     questions.forEach((q, i) => {
     let score = answers[i];
     if (q.reverse) {
@@ -2268,6 +2266,7 @@ window.onload = function() {
     </script>
 </body>
 </html>
+
 
 
 
