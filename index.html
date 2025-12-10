@@ -1736,8 +1736,8 @@ function verifyCard() {
     const cardCode = cardInput.value.trim().toUpperCase();
     
     // 检查万能卡密
-    if (cardCode === MASTER_CODE) {
-        currentCard = MASTER_CODE;
+    if (cardCode === MASTER_CODE || cardCode === "MBTI-MASTER") {
+        currentCard = cardCode;
         showTestPage();
         return;
     }
@@ -1748,13 +1748,11 @@ function verifyCard() {
         return;
     }
     
-    // 验证格式：允许 MBTI- 前缀或其他格式
-    if (!/^MBTI-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(cardCode)) {
-        if (!/^[A-Z0-9]{8,20}$/.test(cardCode)) {
-            errorDiv.textContent = '卡号格式不正确';
-            errorDiv.style.display = 'block';
-            return;
-        }
+    // 验证格式
+    if (!/^[A-Z0-9\-]{8,20}$/.test(cardCode)) {
+        errorDiv.textContent = '卡号格式不正确';
+        errorDiv.style.display = 'block';
+        return;
     }
     
     const deviceId = getDeviceFingerprint();
@@ -1762,7 +1760,6 @@ function verifyCard() {
     let card = cards.find(c => c.code === cardCode);
     
     if (!card) {
-        // 创建新卡并绑定设备
         card = { 
             code: cardCode, 
             deviceId: deviceId,
@@ -1772,9 +1769,8 @@ function verifyCard() {
         };
         cards.push(card);
     } else {
-        // 检查设备绑定
         if (card.deviceId && card.deviceId !== deviceId) {
-            errorDiv.textContent = '该卡号已在其他设备使用，无法在本设备使用';
+            errorDiv.textContent = '该卡号已在其他设备使用';
             errorDiv.style.display = 'block';
             return;
         }
@@ -2296,6 +2292,7 @@ window.onload = function() {
     </script>
 </body>
 </html>
+
 
 
 
