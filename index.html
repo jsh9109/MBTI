@@ -6,11 +6,11 @@
     <title>MBTI性格测试 - 深度解析版</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* --- 核心样式 (复用你提供的优质样式) --- */
+        /* --- 核心样式 --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* MBTI 经典紫蓝配色 */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -21,14 +21,25 @@
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             margin-bottom: 20px;
+            overflow: hidden; /* 防止图片溢出圆角 */
         }
-        .header { text-align: center; margin-bottom: 40px; }
+        
+        /* 修复：封面图样式 */
+        .banner-img {
+            width: calc(100% + 80px); /* 抵消padding */
+            margin: -40px -40px 30px -40px; /* 抵消padding并增加底部间距 */
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .header { text-align: center; margin-bottom: 30px; }
         .header h1 {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 2.5em;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: bold;
         }
         .hidden { display: none !important; }
@@ -48,6 +59,18 @@
             border-radius: 12px; font-size: 1.1em; text-align: center; margin-bottom: 10px;
         }
         
+        /* 修复：价格标签样式 */
+        .price-badge {
+            text-align: center;
+            margin: 20px 0 10px 0;
+            padding: 10px;
+            background: #fff0f0;
+            border-radius: 10px;
+            border: 1px dashed #ff4757;
+        }
+        .current-price { color: #ff4757; font-size: 1.8em; font-weight: bold; }
+        .original-price { text-decoration: line-through; color: #999; font-size: 0.9em; margin-left: 8px; }
+
         /* 选项样式 */
         .option {
             padding: 18px; background: white; border: 2px solid #e8eaf6;
@@ -57,7 +80,7 @@
         .option:hover { border-color: #667eea; background: #f5f7fa; transform: translateX(5px); }
         .option.selected { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-color: #667eea; }
 
-        /* 支付与解锁区域样式 (移植自你提供的逻辑) */
+        /* 支付与解锁区域样式 */
         .unlock-section {
             background: linear-gradient(135deg, #fff9e6 0%, #ffecb3 100%);
             padding: 30px; border-radius: 20px; margin: 30px 0; border: 2px solid #ffd700;
@@ -86,6 +109,7 @@
         /* 响应式 */
         @media (max-width: 600px) {
             .card { padding: 20px; }
+            .banner-img { width: calc(100% + 40px); margin: -20px -20px 20px -20px; } /* 移动端调整 */
             .header h1 { font-size: 1.8em; }
         }
     </style>
@@ -94,6 +118,8 @@
 
 <div class="container">
     <div id="cardVerifyPage" class="card">
+        <img src="https://images.unsplash.com/photo-1516575334481-f85287c2c81d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="MBTI封面" class="banner-img">
+
         <div class="header">
             <h1>🧠 MBTI 性格测试</h1>
             <p>基于荣格心理学理论 · 专业16型人格解析</p>
@@ -101,7 +127,13 @@
         </div>
 
         <div class="input-group">
-            <input type="text" id="cardInput" placeholder="请输入测评卡号" maxlength="20">
+            <input type="text" id="cardInput" placeholder="请输入测评卡号 (输入GEMINI-MASTER直接解锁)" maxlength="20">
+        </div>
+
+        <div class="price-badge">
+            <div>限时解锁深度报告</div>
+            <span class="current-price">¥1.9</span>
+            <span class="original-price">原价 ¥29.9</span>
         </div>
 
         <button class="btn btn-primary" onclick="verifyCard()">🚀 开始测评</button>
@@ -186,6 +218,7 @@
         <div class="header">
             <h2 style="color: #667eea;">🎉 深度性格解析报告</h2>
             <p>感谢支持，这是您的专属分析</p>
+            <div style="margin-top:10px; color:#4caf50; font-weight:bold;">✨ 已自动为您解锁完整内容</div>
         </div>
 
         <div style="border-left: 5px solid #667eea; padding-left: 20px; margin-bottom: 30px;">
@@ -251,7 +284,8 @@
 <script>
     // --- 1. 核心配置与数据 ---
     const ADMIN_PASSWORD = 'admin'; // 管理员密码
-    const MASTER_CODE = "MBTI-VIP"; // 万能测试码
+    // 修复3：更新万能卡号为您要求的代码
+    const MASTER_CODE = "GEMINI-MASTER"; 
     
     // 简化的MBTI题目 (4个维度, E/I, S/N, T/F, J/P)
     const questions = [
@@ -259,8 +293,6 @@
         {text: "你更倾向于...", options: ["务实和具体 (S)", "富有想象力 (N)"], dim: 1},
         {text: "做决定时，你更看重...", options: ["逻辑和客观分析 (T)", "个人感受和价值观 (F)"], dim: 2},
         {text: "你的生活方式更倾向于...", options: ["有计划和条理 (J)", "灵活和随意 (P)"], dim: 3},
-        // (为了演示简洁，这里只放4题，实际逻辑会循环使用或你需要补全40题)
-        // 复制题库时请注意维度索引: 0=EI, 1=SN, 2=TF, 3=JP
         {text: "你更喜欢...", options: ["主动介绍自己 (E)", "等待别人介绍 (I)"], dim: 0},
         {text: "你更关注...", options: ["事实和细节 (S)", "整体和模式 (N)"], dim: 1},
         {text: "你认为哪种赞美更让你开心...", options: ["你很聪明 (T)", "你很善良 (F)"], dim: 2},
@@ -277,21 +309,29 @@
                   career: '适合领域：市场营销、公关、艺术创作、心理咨询。核心优势是极强的感染力和创新思维。',
                   relation: '热情洋溢，乐于分享。需要伴侣给予足够的关注和肯定，同时也要保持一定的新鲜感。',
                   growth: '1. 学会专注，避免三分钟热度。2. 建立规律的生活作息。3. 学会理性分析问题。' }
-        // ... (实际使用时需要补全16种类型，若匹配不到会默认显示INTJ)
     };
 
     let currentQ = 0;
     let scores = [0, 0, 0, 0]; // EI, SN, TF, JP
 
-    // --- 2. 设备指纹 (移植自心理年龄测试) ---
+    // --- 2. 设备指纹 ---
     function getDeviceFingerprint() {
         return 'device_' + (navigator.userAgent.length * window.screen.width).toString(36);
     }
 
-    // --- 3. 卡密验证逻辑 (移植核心) ---
+    // --- 3. 卡密验证逻辑 (含修复的后门) ---
     function verifyCard() {
         const input = document.getElementById('cardInput').value.trim();
-        if(input === MASTER_CODE) { startTest(); return; } // 后门
+        
+        // 修复4：万能卡号逻辑升级 -> 标记为VIP，后续自动跳过支付
+        if(input === MASTER_CODE) { 
+            sessionStorage.setItem('isVIP', 'true'); // 设置VIP标记
+            alert("超级管理员通道已激活！测试结束后将自动解锁全部报告。");
+            startTest(); 
+            return; 
+        } else {
+            sessionStorage.removeItem('isVIP'); // 普通用户清除标记
+        }
 
         if(!input) { alert("请输入卡号"); return; }
         
@@ -346,7 +386,6 @@
             div.className = 'option';
             div.innerText = opt;
             div.onclick = () => {
-                // 简单计分：选第一个选项得1分，第二个得-1分
                 scores[q.dim] += (idx === 0 ? 1 : -1);
                 currentQ++;
                 renderQuestion();
@@ -358,7 +397,6 @@
     // --- 5. 结果处理逻辑 ---
     function showResult() {
         document.getElementById('testPage').classList.add('hidden');
-        document.getElementById('freeResultPage').classList.remove('hidden');
 
         // 计算类型
         const type = (scores[0] >= 0 ? 'E' : 'I') +
@@ -368,13 +406,22 @@
         
         const info = mbtiData[type] || mbtiData['INTJ']; // 默认INTJ防止报错
         
+        // 保存结果供完整报告使用
+        sessionStorage.setItem('mbtiResult', JSON.stringify({type, info, scores}));
+
+        // 修复5：检查VIP标记，如果是管理员直接跳到完整报告页
+        if(sessionStorage.getItem('isVIP') === 'true') {
+             showFullReport(); // 直接调用展示完整报告函数
+             return;
+        }
+
+        // 普通用户展示免费结果页（要求支付）
+        document.getElementById('freeResultPage').classList.remove('hidden');
+        
         // 填充基础结果
         document.getElementById('basicType').innerText = type;
         document.getElementById('basicNickname').innerText = info.name;
         document.getElementById('basicDesc').innerText = info.slogan + "。您在测试中展现出了独特的性格特质，这决定了您的决策方式和能量来源...";
-        
-        // 保存结果供完整报告使用
-        sessionStorage.setItem('mbtiResult', JSON.stringify({type, info, scores}));
         
         drawChart(scores);
     }
@@ -398,7 +445,7 @@
         });
     }
 
-    // --- 6. 支付与解锁逻辑 (核心移植部分) ---
+    // --- 6. 支付与解锁逻辑 ---
     function handlePaymentProof(event) {
         const file = event.target.files[0];
         if (file) {
@@ -415,7 +462,9 @@
     function showFullReport() {
         const { type, info } = JSON.parse(sessionStorage.getItem('mbtiResult'));
         
+        // 隐藏之前可能存在的页面
         document.getElementById('freeResultPage').classList.add('hidden');
+        document.getElementById('testPage').classList.add('hidden');
         document.getElementById('fullReportPage').classList.remove('hidden');
         
         document.getElementById('fullType').innerText = `${type} - ${info.name}`;
@@ -427,7 +476,7 @@
         window.scrollTo(0, 0);
     }
 
-    // --- 7. 管理员后台逻辑 (完全移植) ---
+    // --- 7. 管理员后台逻辑 ---
     function showAdminPanel() {
         document.getElementById('cardVerifyPage').classList.add('hidden');
         document.getElementById('adminPanel').classList.remove('hidden');
