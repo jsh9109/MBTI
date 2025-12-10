@@ -1359,8 +1359,8 @@ body::before {
                             <button onclick="copyToClipboard('jsh9109', this)">复制微信</button>
                         </div>
                         <div class="copy-item">
-                            <span id="alipayID"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9cafadafafaaacaaafaddcededb2fff3f1">[email&#160;protected]</a></span>
-                            <button onclick="copyToClipboard('313360631@qq.com', this)">复制支付宝</button>
+<span id="alipayID">313360631@qq.com</span>
+<button onclick="copyToClipboard('313360631@qq.com', this)">复制支付宝</button>
                         </div>
                     </div>
                 </div>
@@ -1878,18 +1878,51 @@ function calculateResult() {
         }
         dimensionScores[q.dimension] += score;
     });
-    
+    questions.forEach((q, i) => {
+    let score = answers[i];
+    if (q.reverse) {
+        score = 6 - score;
+    }
+    dimensionScores[q.dimension] += score;
+});
+
+// 调试：检查每个维度的分数
+console.log("原始维度分数:", dimensionScores);
+console.log("答案数组:", answers);
+```
+
+---
+
+## 🧪 **测试步骤：**
+
+1. **保存文件**
+2. **清空浏览器缓存**（Ctrl+Shift+Delete）
+3. **刷新页面**（Ctrl+F5）
+4. **打开控制台**（F12 → Console标签）
+5. **重新做一次测试**
+6. **截图控制台输出**给我看
+
+控制台会显示：
+```
+维度得分: [57, 57, 57, NaN]  ← 如果第4个是NaN就是bug
+MBTI类型: ENTP
+原始维度分数: [43, 43, 43, 0]
+答案数组: [3, 3, 3, ...]
     // 计算百分比得分 (0-100)
     const percentageScores = dimensionScores.map((score, i) => 
         Math.round((score / (dimensionCounts[i] * 5)) * 100)
     );
     
     // 确定MBTI类型
-    let mbtiType = "";
-    mbtiType += (percentageScores[0] >= 50) ? "E" : "I";
-    mbtiType += (percentageScores[1] >= 50) ? "N" : "S"; // 注意：N是高分
-    mbtiType += (percentageScores[2] >= 50) ? "T" : "F";
-    mbtiType += (percentageScores[3] >= 50) ? "J" : "P";
+   let mbtiType = "";
+mbtiType += (percentageScores[0] >= 50) ? "E" : "I";
+mbtiType += (percentageScores[1] >= 50) ? "N" : "S";
+mbtiType += (percentageScores[2] >= 50) ? "T" : "F";
+mbtiType += (percentageScores[3] >= 50) ? "J" : "P";
+
+// 调试输出
+console.log("维度得分:", percentageScores);
+console.log("MBTI类型:", mbtiType);
     
     const resultType = mbtiTypes[mbtiType] || mbtiTypes['INFP'];
     const reportData = fullMbtiReports[mbtiType] || fullMbtiReports['INFP'];
@@ -2263,6 +2296,7 @@ window.onload = function() {
     </script>
 </body>
 </html>
+
 
 
 
