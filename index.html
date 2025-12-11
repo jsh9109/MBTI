@@ -1873,6 +1873,9 @@ function calculateResult() {
         score = 6 - score;
     }
     dimensionScores[q.dimension] += score;
+         if (isNaN(dimensionScores[3])) {
+        console.log(`维度3变成NaN了！当前题目:`, i+1, q, `分数:`, score);
+    }
 });
 
 // 调试：检查每个维度的分数
@@ -2266,6 +2269,7 @@ window.onload = function() {
     </script>
 </body>
 </html>
+
 
 
 
