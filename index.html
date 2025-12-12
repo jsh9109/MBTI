@@ -1514,15 +1514,15 @@ const MASTER_CODE = "GEMINI-MASTER";
 const questions = [
     // E-I 维度 (15题) - 外向 vs 内向
     {text: '在聚会上，我通常是活跃的参与者，喜欢和很多人交谈。', dimension: 0, reverse: false},
-    {text: '我更喜欢一对一的深入交流，而不是在大群体中社交。', dimension: 0, reverse: true},
+    {text: '我更喜欢一对一的深入交流，而不是在大群体中社交。', dimension: 0, reverse: false},
     {text: '与他人互动能让我充满能量和活力。', dimension: 0, reverse: false},
-    {text: '长时间的社交活动会让我感到疲惫，需要独处来恢复。', dimension: 0, reverse: true},
+    {text: '长时间的社交活动会让我感到疲惫，需要独处来恢复。', dimension: 0, reverse: false},
     {text: '我倾向于先行动，再思考。', dimension: 0, reverse: false},
-    {text: '我倾向于先思考，再行动。', dimension: 0, reverse: true},
+    {text: '我倾向于先思考，再行动。', dimension: 0, reverse: false},
     {text: '我很容易结识新朋友。', dimension: 0, reverse: false},
     {text: '我需要时间来熟悉新朋友。', dimension: 0, reverse: true},
     {text: '我喜欢成为众人瞩目的焦点。', dimension: 0, reverse: false},
-    {text: '我更喜欢在幕后工作，不喜欢成为关注的中心。', dimension: 0, reverse: true},
+    {text: '我更喜欢在幕后工作，不喜欢成为关注的中心。', dimension: 0, reverse: false},
     {text: '我通过与他人交谈来理清自己的思路。', dimension: 0, reverse: false},
     {text: '我通过独自思考来理清自己的思路。', dimension: 0, reverse: true},
     {text: '我的朋友圈很广，认识很多人。', dimension: 0, reverse: false},
@@ -1531,30 +1531,30 @@ const questions = [
     
     // S-N 维度 (15题) - 实感 vs 直觉
     {text: '我更关注事实和细节，而不是可能性和含义。', dimension: 1, reverse: false},
-    {text: '我更关注整体概念和未来可能性，而不是具体细节。', dimension: 1, reverse: true},
+    {text: '我更关注整体概念和未来可能性，而不是具体细节。', dimension: 1, reverse: false},
     {text: '我相信实践经验胜过理论。', dimension: 1, reverse: false},
     {text: '我喜欢探索新理论和抽象概念。', dimension: 1, reverse: true},
     {text: '我倾向于按部就班地做事。', dimension: 1, reverse: false},
-    {text: '我喜欢跳跃式思维，经常有突发奇想。', dimension: 1, reverse: true},
+    {text: '我喜欢跳跃式思维，经常有突发奇想。', dimension: 1, reverse: false},
     {text: '我更注重当下的实际情况。', dimension: 1, reverse: false},
-    {text: '我经常思考未来的可能性。', dimension: 1, reverse: true},
+    {text: '我经常思考未来的可能性。', dimension: 1, reverse: false},
     {text: '我喜欢使用已经验证过的方法。', dimension: 1, reverse: false},
     {text: '我喜欢尝试新方法和创新。', dimension: 1, reverse: true},
     {text: '我记得事情的具体细节。', dimension: 1, reverse: false},
-    {text: '我记得事情的整体印象和感觉。', dimension: 1, reverse: true},
+    {text: '我记得事情的整体印象和感觉。', dimension: 1, reverse: false},
     {text: '我是一个脚踏实地的人。', dimension: 1, reverse: false},
     {text: '我是一个充满想象力的人。', dimension: 1, reverse: true},
     {text: '我喜欢明确的指示和清晰的步骤。', dimension: 1, reverse: false},
     
     // T-F 维度 (15题) - 思考 vs 情感
     {text: '在做决定时，我更依赖逻辑分析而非个人感受。', dimension: 2, reverse: false},
-    {text: '在做决定时，我更关注对人的影响而非客观逻辑。', dimension: 2, reverse: true},
+    {text: '在做决定时，我更关注对人的影响而非客观逻辑。', dimension: 2, reverse: false},
     {text: '我认为公平比和谐更重要。', dimension: 2, reverse: false},
-    {text: '我认为和谐比公平更重要。', dimension: 2, reverse: true},
+    {text: '我认为和谐比公平更重要。', dimension: 2, reverse: false},
     {text: '我更擅长批判性思考和找出问题。', dimension: 2, reverse: false},
-    {text: '我更擅长理解他人的情感和需求。', dimension: 2, reverse: true},
+    {text: '我更擅长理解他人的情感和需求。', dimension: 2, reverse: false},
     {text: '在冲突中，我倾向于坚持原则。', dimension: 2, reverse: false},
-    {text: '在冲突中，我倾向于维护关系。', dimension: 2, reverse: true},
+    {text: '在冲突中，我倾向于维护关系。', dimension: 2, reverse: false},
     {text: '我认为诚实比圆滑更重要。', dimension: 2, reverse: false},
     {text: '我认为考虑他人感受比直言不讳更重要。', dimension: 2, reverse: true},
     {text: '我能客观地分析问题，不受情绪影响。', dimension: 2, reverse: false},
@@ -1565,13 +1565,13 @@ const questions = [
     
     // J-P 维度 (15题) - 判断 vs 感知
     {text: '我喜欢制定详细的计划并严格执行。', dimension: 3, reverse: false},
-    {text: '我喜欢保持灵活，随机应变。', dimension: 3, reverse: true},
+    {text: '我喜欢保持灵活，随机应变。', dimension: 3, reverse: false},
     {text: '我倾向于提前完成任务。', dimension: 3, reverse: false},
-    {text: '我倾向于在截止日期前完成任务。', dimension: 3, reverse: true},
+    {text: '我倾向于在截止日期前完成任务。', dimension: 3, reverse: false},
     {text: '我喜欢把事情安排得井井有条。', dimension: 3, reverse: false},
-    {text: '我喜欢保持开放的选择。', dimension: 3, reverse: true},
+    {text: '我喜欢保持开放的选择。', dimension: 3, reverse: false},
     {text: '我希望事情按计划进行。', dimension: 3, reverse: false},
-    {text: '我能很好地适应计划的变化。', dimension: 3, reverse: true},
+    {text: '我能很好地适应计划的变化。', dimension: 3, reverse: false},
     {text: '我倾向于先完成工作，再享受娱乐。', dimension: 3, reverse: false},
     {text: '我倾向于边工作边享受生活。', dimension: 3, reverse: true},
     {text: '我喜欢做决定，有明确的目标。', dimension: 3, reverse: false},
@@ -1872,14 +1872,7 @@ function calculateResult() {
         score = 6 - score;
     }
     dimensionScores[q.dimension] += score;
-         if (isNaN(dimensionScores[3])) {
-        console.log(`维度3变成NaN了！当前题目:`, i+1, q, `分数:`, score);
-    }
 });
-
-// 调试：检查每个维度的分数
-console.log("原始维度分数:", dimensionScores);
-console.log("答案数组:", answers);
 
     const percentageScores = dimensionScores.map((score, i) => 
         Math.round((score / (dimensionCounts[i] * 5)) * 100)
@@ -1892,9 +1885,6 @@ mbtiType += (percentageScores[1] >= 50) ? "N" : "S";
 mbtiType += (percentageScores[2] >= 50) ? "T" : "F";
 mbtiType += (percentageScores[3] >= 50) ? "J" : "P";
 
-// 调试输出
-console.log("维度得分:", percentageScores);
-console.log("MBTI类型:", mbtiType);
     
     const resultType = mbtiTypes[mbtiType] || mbtiTypes['INFP'];
     const reportData = fullMbtiReports[mbtiType] || fullMbtiReports['INFP'];
@@ -2268,6 +2258,7 @@ window.onload = function() {
     </script>
 </body>
 </html>
+
 
 
 
